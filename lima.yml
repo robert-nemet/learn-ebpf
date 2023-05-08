@@ -1,0 +1,27 @@
+images:
+- location: "https://cloud-images.ubuntu.com/releases/bionic/release-20230425/ubuntu-18.04-server-cloudimg-amd64.img"
+  arch: "x86_64"
+- location: "https://cloud-images.ubuntu.com/releases/bionic/release-20230425/ubuntu-18.04-server-cloudimg-arm64.img"
+  arch: "aarch64"
+- location: "https://cloud-images.ubuntu.com/releases/bionic/release-20230425/ubuntu-18.04-server-cloudimg-amd64.img"
+  arch: "x86_64"
+- location: "https://cloud-images.ubuntu.com/releases/bionic/release-20230425/ubuntu-18.04-server-cloudimg-arm64.img"
+  arch: "aarch64"
+
+cpus: 4
+memory: "6GiB"
+
+mounts:
+- location: "~"
+  writable: true
+- location: "/tmp/lima"
+  writable: true
+
+provision:
+- mode: system
+  script: |
+    apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 4052245BD4284CDD
+    echo "deb https://repo.iovisor.org/apt/$(lsb_release -cs) $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/iovisor.list
+    apt-get update
+    apt-get install -y bcc-tools libbcc-examples linux-headers-$(uname -r)
+    apt-get install -y python3-pip  
