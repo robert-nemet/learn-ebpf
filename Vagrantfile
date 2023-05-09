@@ -7,6 +7,8 @@ $script = <<-SCRIPT
   echo "deb https://repo.iovisor.org/apt/$(lsb_release -cs) $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/iovisor.list
   sudo apt-get update
   sudo apt-get -y install bcc-tools libbcc-examples linux-headers-$(uname -r)
+  sudo apt-get -y install python3-pip python3-bpfcc libbpfcc
+  sudo apt-get -y install python3-bcc
   date > /etc/vagrant_provisioned_at
 SCRIPT
 
